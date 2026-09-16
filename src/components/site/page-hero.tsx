@@ -1,0 +1,30 @@
+import type { ReactNode } from "react";
+
+export function PageHero({
+  eyebrow,
+  title,
+  description,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <section className="grid-lines border-b border-border pt-36 pb-16 md:pt-44 md:pb-24">
+      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+        <p className="eyebrow">{eyebrow}</p>
+        <h1 className="mt-4 max-w-4xl text-4xl leading-[1.02] font-semibold text-balance-tight md:text-7xl">
+          {title}
+        </h1>
+        {description ? (
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-xl">
+            {description}
+          </p>
+        ) : null}
+        {children}
+      </div>
+    </section>
+  );
+}

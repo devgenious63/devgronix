@@ -3,34 +3,85 @@
  *
  * Every page reads from `src/data/*`. Swapping these arrays for a database or
  * CMS later only requires replacing the data source, not the pages.
+ * Each record carries admin-facing fields (id/order/status/contentType) so the
+ * same shapes can be served from an admin panel without redesigning the site.
  */
 
+export type PublishStatus = "published" | "draft";
+export type ContentType = "demo" | "verified";
+
+export type ServiceCategorySlug = "technology" | "design" | "growth";
+
+export type ServiceCategory = {
+  slug: ServiceCategorySlug;
+  title: string;
+  description: string;
+  order: number;
+};
+
 export type Service = {
+  id: string;
   slug: string;
+  category: ServiceCategorySlug;
   title: string;
   tagline: string;
   summary: string;
+  overview: string;
   icon: string;
-  deliverables: string[];
+  offerings: { title: string; detail: string }[];
+  capabilities: string[];
+  tools: string[];
   process: { title: string; detail: string }[];
   outcomes: string[];
+  faqs?: Faq[];
+  featured: boolean;
+  status: PublishStatus;
+  order: number;
 };
 
-export type ProjectLabel = "Demo" | "Concept";
+export type BillingType =
+  | "per project"
+  | "per month"
+  | "per design"
+  | "per video"
+  | "per package"
+  | "custom";
+
+export type PricingPlan = {
+  id: string;
+  serviceId: string;
+  name: string;
+  description: string;
+  price: string;
+  billingType: BillingType;
+  features: string[];
+  popular: boolean;
+  ctaText: string;
+  status: PublishStatus;
+  order: number;
+};
 
 export type Project = {
+  id: string;
   slug: string;
   title: string;
   client: string;
-  label: ProjectLabel;
+  label: "Demo" | "Concept";
+  contentType: ContentType;
   category: string;
   year: string;
   summary: string;
+  overview: string;
   challenge: string;
   approach: string[];
+  solution: string;
+  features: string[];
   outcome: { metric: string; label: string }[];
   stack: string[];
   serviceSlugs: string[];
+  featured: boolean;
+  status: PublishStatus;
+  order: number;
 };
 
 export type Value = {
@@ -51,19 +102,16 @@ export type TechGroup = {
 };
 
 export type Testimonial = {
-  quote: string;
+  id: string;
   name: string;
   role: string;
   company: string;
-};
-
-export type PricingTier = {
-  name: string;
-  price: string;
-  cadence: string;
-  description: string;
-  features: string[];
-  featured?: boolean;
+  country: string;
+  quote: string;
+  photo?: string;
+  rating: number;
+  contentType: ContentType;
+  status: PublishStatus;
 };
 
 export type Faq = { question: string; answer: string };

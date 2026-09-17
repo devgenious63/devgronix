@@ -206,3 +206,174 @@
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------
+ * Unified interaction system.
+ * Micro-interactions: 200ms; larger transitions: 300ms; one easing.
+ * ------------------------------------------------------------- */
+
+@theme inline {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 9999px;
+  }
+}
+
+/* Primary call to action */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    transform 0.2s var(--ease-smooth),
+    box-shadow 0.2s var(--ease-smooth),
+    filter 0.2s var(--ease-smooth);
+
+  &:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+  }
+  &:active {
+    transform: scale(0.98) translateY(0);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* Secondary / outline call to action */
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  color: inherit;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    border-color 0.2s var(--ease-smooth),
+    color 0.2s var(--ease-smooth),
+    transform 0.2s var(--ease-smooth),
+    background-color 0.2s var(--ease-smooth);
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: scale(0.98) translateY(0);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* Navigation links with an animated indicator */
+@utility nav-link {
+  position: relative;
+  border-radius: 9999px;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  transition: color 0.2s var(--ease-smooth);
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0.875rem;
+    right: 0.875rem;
+    bottom: 0.25rem;
+    height: 1.5px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease-smooth);
+  }
+  &:hover {
+    color: var(--foreground);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+  }
+  &[data-status="active"] {
+    color: var(--foreground);
+    font-weight: 500;
+  }
+  &[data-status="active"]::after {
+    transform: scaleX(1);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Cards: border, elevation and background respond together */
+@utility card-interactive {
+  transition:
+    border-color 0.25s var(--ease-smooth),
+    box-shadow 0.25s var(--ease-smooth),
+    transform 0.25s var(--ease-smooth),
+    background-color 0.25s var(--ease-smooth);
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+    box-shadow: var(--shadow-float);
+    transform: translateY(-3px);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* Scroll reveal, driven by an IntersectionObserver in <Reveal /> */
+@utility reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s var(--ease-smooth),
+    transform 0.6s var(--ease-smooth);
+
+  &[data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

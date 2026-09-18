@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PricingIndexRouteImport } from './routes/pricing.index'
+import { Route as PricingSlugRouteImport } from './routes/pricing.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as WorksIndexRouteImport } from './routes/works.index'
@@ -30,6 +32,16 @@ const AboutRoute = AboutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingIndexRoute = PricingIndexRouteImport.update({
+  id: '/pricing/',
+  path: '/pricing/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingSlugRoute = PricingSlugRouteImport.update({
+  id: '/pricing/$slug',
+  path: '/pricing/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
@@ -57,8 +69,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/pricing/$slug': typeof PricingSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/works/$slug': typeof WorksSlugRoute
+  '/pricing/': typeof PricingIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/works/': typeof WorksIndexRoute
 }
@@ -66,8 +80,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/pricing/$slug': typeof PricingSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/works/$slug': typeof WorksSlugRoute
+  '/pricing': typeof PricingIndexRoute
   '/services': typeof ServicesIndexRoute
   '/works': typeof WorksIndexRoute
 }
@@ -76,8 +92,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/pricing/$slug': typeof PricingSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/works/$slug': typeof WorksSlugRoute
+  '/pricing/': typeof PricingIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/works/': typeof WorksIndexRoute
 }
@@ -87,8 +105,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/pricing/$slug'
     | '/services/$slug'
     | '/works/$slug'
+    | '/pricing/'
     | '/services/'
     | '/works/'
   fileRoutesByTo: FileRoutesByTo
@@ -96,8 +116,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/pricing/$slug'
     | '/services/$slug'
     | '/works/$slug'
+    | '/pricing'
     | '/services'
     | '/works'
   id:
@@ -105,8 +127,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/pricing/$slug'
     | '/services/$slug'
     | '/works/$slug'
+    | '/pricing/'
     | '/services/'
     | '/works/'
   fileRoutesById: FileRoutesById
@@ -115,8 +139,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  PricingSlugRoute: typeof PricingSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   WorksSlugRoute: typeof WorksSlugRoute
+  PricingIndexRoute: typeof PricingIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   WorksIndexRoute: typeof WorksIndexRoute
 }
@@ -142,6 +168,20 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing/': {
+      id: '/pricing/'
+      path: '/pricing'
+      fullPath: '/pricing/'
+      preLoaderRoute: typeof PricingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing/$slug': {
+      id: '/pricing/$slug'
+      path: '/pricing/$slug'
+      fullPath: '/pricing/$slug'
+      preLoaderRoute: typeof PricingSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/': {
@@ -179,8 +219,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  PricingSlugRoute: PricingSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   WorksSlugRoute: WorksSlugRoute,
+  PricingIndexRoute: PricingIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   WorksIndexRoute: WorksIndexRoute,
 }

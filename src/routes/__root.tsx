@@ -113,11 +113,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-const themeScript = `(function(){try{var t=localStorage.getItem('devgronix-theme');if(t!=='light'){document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
+/** Light is the default; only an explicit stored choice switches to dark. */
+const themeScript = `(function(){try{if(localStorage.getItem('devgronix-theme')==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

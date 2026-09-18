@@ -5,9 +5,11 @@ import { site } from "@/data";
 export function CtaBand({
   title = "Let's build something worth keeping.",
   description = "Tell us the problem, the deadline and the constraints. We'll come back with a scope, a timeline and a fixed figure.",
+  serviceSlug,
 }: {
   title?: string;
   description?: string;
+  serviceSlug?: string;
 }) {
   return (
     <section className="border-t border-border bg-ink text-ink-foreground">
@@ -21,14 +23,15 @@ export function CtaBand({
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+              search={{ service: serviceSlug }}
+              className="btn-primary group"
             >
-              Start a project
-              <ArrowRight className="size-4" />
+              Get a Quote
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-ink-foreground transition-colors hover:border-accent hover:text-accent"
+              className="btn-outline !border-white/20 text-ink-foreground"
             >
               {site.email}
             </a>

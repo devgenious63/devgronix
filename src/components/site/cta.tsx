@@ -23,7 +23,7 @@ export function CtaBand({
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               to="/contact"
-              search={serviceSlug ? { service: serviceSlug } : undefined}
+              search={{ service: serviceSlug }}
               className="btn-primary group"
             >
               Get a Quote

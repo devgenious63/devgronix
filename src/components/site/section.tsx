@@ -7,8 +7,8 @@ export function Section({
   id,
 }: {
   children: ReactNode;
-  className?: string;
-  id?: string;
+  className?: string | undefined;
+  id?: string | undefined;
 }) {
   return (
     <section id={id} className={cn("border-t border-border/70 py-20 md:py-28", className)}>
@@ -24,11 +24,11 @@ export function SectionHeading({
   align = "left",
   className,
 }: {
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: string;
-  description?: string;
-  align?: "left" | "center";
-  className?: string;
+  description?: string | undefined;
+  align?: "left" | "center" | undefined;
+  className?: string | undefined;
 }) {
   return (
     <div

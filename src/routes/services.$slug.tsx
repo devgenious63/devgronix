@@ -230,28 +230,32 @@ function ServiceDetail() {
       {/* Explore other services */}
       <Section className="bg-surface">
         <div className="grid gap-4 sm:grid-cols-2">
-          <Link
-            to="/services/$slug"
-            params={{ slug: previous.slug }}
-            className="group card-interactive rounded-xl border border-border bg-card p-6"
-          >
-            <span className="eyebrow">Previous service</span>
-            <p className="mt-3 inline-flex items-center gap-2 font-display text-xl font-semibold transition-colors group-hover:text-accent">
-              <ArrowLeft className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-              {previous.title}
-            </p>
-          </Link>
-          <Link
-            to="/services/$slug"
-            params={{ slug: next.slug }}
-            className="group card-interactive rounded-xl border border-border bg-card p-6 sm:text-right"
-          >
-            <span className="eyebrow">Next service</span>
-            <p className="mt-3 inline-flex items-center gap-2 font-display text-xl font-semibold transition-colors group-hover:text-accent">
-              {next.title}
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </p>
-          </Link>
+          {previous ? (
+            <Link
+              to="/services/$slug"
+              params={{ slug: previous.slug }}
+              className="group card-interactive rounded-xl border border-border bg-card p-6"
+            >
+              <span className="eyebrow">Previous service</span>
+              <p className="mt-3 inline-flex items-center gap-2 font-display text-xl font-semibold transition-colors group-hover:text-accent">
+                <ArrowLeft className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
+                {previous.title}
+              </p>
+            </Link>
+          ) : null}
+          {next ? (
+            <Link
+              to="/services/$slug"
+              params={{ slug: next.slug }}
+              className="group card-interactive rounded-xl border border-border bg-card p-6 sm:text-right"
+            >
+              <span className="eyebrow">Next service</span>
+              <p className="mt-3 inline-flex items-center gap-2 font-display text-xl font-semibold transition-colors group-hover:text-accent">
+                {next.title}
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </p>
+            </Link>
+          ) : null}
         </div>
 
         <p className="eyebrow mt-12">Explore other services</p>

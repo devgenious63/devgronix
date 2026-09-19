@@ -5,10 +5,13 @@ import { Check, Mail, MapPin, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { PageHero } from "@/components/site/page-hero";
 import { Section } from "@/components/site/section";
-import { budgetOptions, services, site } from "@/data";
+import { budgetOptions, publishedServices, serviceCategories, site } from "@/data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    service: typeof search['service'] === "string" ? search['service'] : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Contact — DEVGRONIX" },

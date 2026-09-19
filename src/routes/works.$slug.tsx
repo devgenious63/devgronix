@@ -153,7 +153,10 @@ function WorkDetail() {
         </div>
       </Section>
 
-      <CtaBand />
+      <CtaBand
+        title="Want something like this, for real?"
+        {...(project.serviceSlugs[0] ? { serviceSlug: project.serviceSlugs[0] } : {})}
+      />
     </>
   );
 }

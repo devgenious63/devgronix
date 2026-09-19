@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/page-hero";
 import { Section, SectionHeading } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta";
 import { Icon } from "@/components/site/icon";
-import { site, trustStrip, values, workflow } from "@/data";
+import { getServicesByCategory, serviceCategories, site, techStack, trustStrip, values, workflow } from "@/data";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -65,6 +65,37 @@ function AboutPage() {
       </Section>
 
       <Section className="bg-surface">
+        <SectionHeading
+          eyebrow="Capabilities"
+          title="Three practices, one team"
+          description="Technology, creative and growth work under a single point of contact."
+        />
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
+          {serviceCategories.map((category) => (
+            <div key={category.slug} className="border-t border-border pt-6">
+              <h3 className="font-display text-xl font-semibold">{category.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {category.description}
+              </p>
+              <ul className="mt-4 space-y-1.5 text-sm">
+                {getServicesByCategory(category.slug).map((service) => (
+                  <li key={service.slug}>
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: service.slug }}
+                      className="text-muted-foreground transition-colors hover:text-accent"
+                    >
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
         <SectionHeading eyebrow="Values" title="Four commitments we don't trade away" />
         <div className="mt-12 grid gap-8 sm:grid-cols-2">
           {values.map((value) => (

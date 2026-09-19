@@ -94,8 +94,8 @@ function Home() {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading
             eyebrow="Capabilities"
-            title="Eight ways we move products forward"
-            description="Every engagement combines a few of these. None of them are sold as a package you don't need."
+            title="Technology, creative and digital growth"
+            description={`${serviceCategories.map((c) => c.title).join(" · ")} — featured services below, with the full directory one click away.`}
           />
           <Link
             to="/services"
@@ -105,7 +105,7 @@ function Home() {
           </Link>
         </div>
         <div className="mt-12 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, i) => (
+          {featuredServices.slice(0, 8).map((service, i) => (
             <ServiceCard key={service.slug} service={service} index={i} />
           ))}
         </div>
@@ -127,7 +127,7 @@ function Home() {
           </Link>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.slice(0, 3).map((project) => (
+          {publishedProjects.slice(0, 3).map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
@@ -201,13 +201,13 @@ function Home() {
           description="Placeholder quotes shown while real client approvals are pending."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <figure key={t.name} className="flex flex-col rounded-lg border border-border bg-card p-7">
+          {publishedTestimonials.map((t) => (
+            <figure key={t.id} className="flex flex-col rounded-lg border border-border bg-card p-7">
               <blockquote className="text-base leading-relaxed">“{t.quote}”</blockquote>
               <figcaption className="mt-6 border-t border-border pt-4 text-sm">
                 <span className="font-medium">{t.name}</span>
                 <span className="block text-muted-foreground">
-                  {t.role}, {t.company}
+                  {t.role}, {t.company} · {t.country}
                 </span>
               </figcaption>
             </figure>

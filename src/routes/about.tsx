@@ -41,8 +41,9 @@ function AboutPage() {
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr]">
           <div className="space-y-6 text-lg leading-relaxed">
             <p>
-              We work remote-first across three continents, in small senior teams rather than large
-              layered ones. Every project has a named lead, a written scope and a weekly demo.
+              We work remote-first in small senior teams rather than large layered ones, serving
+              clients in India, Saudi Arabia, the UAE and internationally. Every project has a named
+              lead, a written scope and a weekly demo.
             </p>
             <p>
               Our tagline —{" "}

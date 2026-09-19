@@ -47,19 +47,19 @@ function WorksPage() {
 
       <Section className="border-t-0">
         <div className="flex flex-wrap gap-2">
-          {projectCategories.map((category) => (
+          {filters.map((item) => (
             <button
-              key={category}
+              key={item.slug}
               type="button"
-              onClick={() => setFilter(category)}
+              onClick={() => setFilter(item.slug)}
               className={cn(
-                "rounded-full border border-border px-4 py-2 text-sm transition-colors",
-                filter === category
+                "focus-ring rounded-full border border-border px-4 py-2 text-sm transition-colors",
+                filter === item.slug
                   ? "border-accent bg-accent text-accent-foreground"
                   : "text-muted-foreground hover:border-accent hover:text-accent",
               )}
             >
-              {category}
+              {item.label}
             </button>
           ))}
         </div>

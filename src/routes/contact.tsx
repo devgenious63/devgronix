@@ -119,14 +119,25 @@ function ContactPage() {
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <Field label="Service interest" error={errors.service}>
-                  <select name="service" defaultValue="" className={fieldClass}>
+                  <select
+                    name="service"
+                    key={preselected}
+                    defaultValue={preselected}
+                    className={fieldClass}
+                  >
                     <option value="" disabled>
                       Select a service
                     </option>
-                    {services.map((service) => (
-                      <option key={service.slug} value={service.title}>
-                        {service.title}
-                      </option>
+                    {serviceCategories.map((category) => (
+                      <optgroup key={category.slug} label={category.title}>
+                        {publishedServices
+                          .filter((s) => s.category === category.slug)
+                          .map((service) => (
+                            <option key={service.slug} value={service.title}>
+                              {service.title}
+                            </option>
+                          ))}
+                      </optgroup>
                     ))}
                     <option value="Not sure yet">Not sure yet</option>
                   </select>

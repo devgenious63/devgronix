@@ -9,9 +9,8 @@ import { budgetOptions, publishedServices, serviceCategories, site } from "@/dat
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    service: typeof search['service'] === "string" ? search['service'] : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { service?: string } =>
+    typeof search['service'] === "string" ? { service: search['service'] } : {},
   head: () => ({
     meta: [
       { title: "Contact — DEVGRONIX" },
@@ -46,8 +45,11 @@ const fieldClass =
   "w-full rounded-md border border-input bg-card px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-accent";
 
 function ContactPage() {
+  const { service: serviceSlug } = Route.useSearch();
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
+  const preselected =
+    publishedServices.find((s) => s.slug === serviceSlug)?.title ?? "";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -116,14 +118,25 @@ function ContactPage() {
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <Field label="Service interest" error={errors.service}>
-                  <select name="service" defaultValue="" className={fieldClass}>
+                  <select
+                    name="service"
+                    key={preselected}
+                    defaultValue={preselected}
+                    className={fieldClass}
+                  >
                     <option value="" disabled>
                       Select a service
                     </option>
-                    {services.map((service) => (
-                      <option key={service.slug} value={service.title}>
-                        {service.title}
-                      </option>
+                    {serviceCategories.map((category) => (
+                      <optgroup key={category.slug} label={category.title}>
+                        {publishedServices
+                          .filter((s) => s.category === category.slug)
+                          .map((service) => (
+                            <option key={service.slug} value={service.title}>
+                              {service.title}
+                            </option>
+                          ))}
+                      </optgroup>
                     ))}
                     <option value="Not sure yet">Not sure yet</option>
                   </select>

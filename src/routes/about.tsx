@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/page-hero";
 import { Section, SectionHeading } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta";
 import { Icon } from "@/components/site/icon";
-import { site, trustStrip, values, workflow } from "@/data";
+import { getServicesByCategory, serviceCategories, site, techStack, trustStrip, values, workflow } from "@/data";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -41,8 +41,9 @@ function AboutPage() {
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr]">
           <div className="space-y-6 text-lg leading-relaxed">
             <p>
-              We work remote-first across three continents, in small senior teams rather than large
-              layered ones. Every project has a named lead, a written scope and a weekly demo.
+              We work remote-first in small senior teams rather than large layered ones, serving
+              clients in India, Saudi Arabia, the UAE and internationally. Every project has a named
+              lead, a written scope and a weekly demo.
             </p>
             <p>
               Our tagline —{" "}
@@ -64,6 +65,37 @@ function AboutPage() {
       </Section>
 
       <Section className="bg-surface">
+        <SectionHeading
+          eyebrow="Capabilities"
+          title="Three practices, one team"
+          description="Technology, creative and growth work under a single point of contact."
+        />
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
+          {serviceCategories.map((category) => (
+            <div key={category.slug} className="border-t border-border pt-6">
+              <h3 className="font-display text-xl font-semibold">{category.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {category.description}
+              </p>
+              <ul className="mt-4 space-y-1.5 text-sm">
+                {getServicesByCategory(category.slug).map((service) => (
+                  <li key={service.slug}>
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: service.slug }}
+                      className="text-muted-foreground transition-colors hover:text-accent"
+                    >
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
         <SectionHeading eyebrow="Values" title="Four commitments we don't trade away" />
         <div className="mt-12 grid gap-8 sm:grid-cols-2">
           {values.map((value) => (
@@ -102,6 +134,34 @@ function AboutPage() {
             <div key={member.role} className="rounded-lg border border-border bg-card p-6">
               <p className="font-display text-lg font-semibold">{member.role}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{member.detail}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeading
+          eyebrow="Technology"
+          title="The tools we reach for"
+          description="Chosen per project for fit and longevity, never for novelty."
+        />
+        <div className="mt-12 space-y-8">
+          {techStack.map((group) => (
+            <div
+              key={group.group}
+              className="grid gap-4 border-t border-border pt-6 md:grid-cols-[180px_1fr]"
+            >
+              <p className="eyebrow pt-1">{group.group}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-border px-3.5 py-1.5 font-mono text-xs text-muted-foreground"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>

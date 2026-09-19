@@ -139,6 +139,34 @@ function AboutPage() {
         </div>
       </Section>
 
+      <Section>
+        <SectionHeading
+          eyebrow="Technology"
+          title="The tools we reach for"
+          description="Chosen per project for fit and longevity, never for novelty."
+        />
+        <div className="mt-12 space-y-8">
+          {techStack.map((group) => (
+            <div
+              key={group.group}
+              className="grid gap-4 border-t border-border pt-6 md:grid-cols-[180px_1fr]"
+            >
+              <p className="eyebrow pt-1">{group.group}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-border px-3.5 py-1.5 font-mono text-xs text-muted-foreground"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       <CtaBand title="Work with a team that stays accountable." />
     </>
   );

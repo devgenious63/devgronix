@@ -25,7 +25,17 @@ export const Route = createFileRoute("/works/")({
 
 function WorksPage() {
   const [filter, setFilter] = useState("All");
-  const visible = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const filters = [
+    { slug: "All", label: "All" },
+    ...Array.from(projectServiceFilters().keys()).map((slug) => ({
+      slug,
+      label: getService(slug)?.title ?? slug,
+    })),
+  ];
+  const visible =
+    filter === "All"
+      ? publishedProjects
+      : publishedProjects.filter((p) => p.serviceSlugs.includes(filter));
 
   return (
     <>

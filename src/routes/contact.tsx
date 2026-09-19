@@ -9,9 +9,8 @@ import { budgetOptions, publishedServices, serviceCategories, site } from "@/dat
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    service: typeof search['service'] === "string" ? search['service'] : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { service?: string } =>
+    typeof search['service'] === "string" ? { service: search['service'] } : {},
   head: () => ({
     meta: [
       { title: "Contact — DEVGRONIX" },

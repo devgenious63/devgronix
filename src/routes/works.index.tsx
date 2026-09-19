@@ -4,7 +4,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Section } from "@/components/site/section";
 import { ProjectCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/cta";
-import { projectCategories, projects } from "@/data";
+import { getService, projectServiceFilters, publishedProjects } from "@/data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/works/")({

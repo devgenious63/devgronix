@@ -6,11 +6,12 @@ import { ProjectCard, ServiceCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/cta";
 import { Icon } from "@/components/site/icon";
 import {
-  projects,
-  services,
+  featuredServices,
+  publishedProjects,
+  publishedTestimonials,
+  serviceCategories,
   site,
   techStack,
-  testimonials,
   trustStrip,
   values,
   workflow,

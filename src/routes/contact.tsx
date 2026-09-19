@@ -46,8 +46,11 @@ const fieldClass =
   "w-full rounded-md border border-input bg-card px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-accent";
 
 function ContactPage() {
+  const { service: serviceSlug } = Route.useSearch();
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
+  const preselected =
+    publishedServices.find((s) => s.slug === serviceSlug)?.title ?? "";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

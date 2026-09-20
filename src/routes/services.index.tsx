@@ -6,22 +6,24 @@ import { CtaBand } from "@/components/site/cta";
 import { Icon } from "@/components/site/icon";
 import { Reveal } from "@/components/site/reveal";
 import { getServicesByCategory, serviceCategories } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+];
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
-    meta: [
-      { title: "Services — Technology, Design & Growth | DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "Web and mobile development, custom software, SaaS, AI, cloud, UI/UX, graphic design, branding, video, marketing, SEO and content services from DEVGRONIX.",
-      },
-      { property: "og:title", content: "Services — Technology, Design & Growth | DEVGRONIX" },
-      {
-        property: "og:description",
-        content: "Fifteen services across technology, design and digital growth, delivered by one team.",
-      },
-    ],
+    meta: pageMeta({
+      title: "Software, Design & Digital Marketing Services | Devgronix",
+      description:
+        "Web and mobile development, custom software, SaaS, AI, cloud, UI/UX, graphic design, branding, video, digital marketing, SEO and content services from Devgronix.",
+      path: "/services",
+    }),
+    links: canonicalLink("/services"),
+    scripts: [jsonLd(breadcrumbSchema(crumbs))],
   }),
   component: ServicesPage,
 });
@@ -34,6 +36,7 @@ function ServicesPage() {
         title="Technology, design and growth under one team"
         description="Development, creative and marketing capabilities that work together, so a product launch does not need three agencies and four handovers."
       >
+        <Breadcrumbs items={crumbs} className="mt-6" />
         <div className="mt-8 flex flex-wrap gap-3">
           {serviceCategories.map((category) => (
             <a

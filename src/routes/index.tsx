@@ -16,22 +16,17 @@ import {
   values,
   workflow,
 } from "@/data";
+import { canonicalLink, pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: "DEVGRONIX — Create. Develop. Grow." },
-      {
-        name: "description",
-        content:
-          "Digital technology and software solutions agency building custom software, web platforms, mobile apps, cloud infrastructure and AI automation.",
-      },
-      { property: "og:title", content: "DEVGRONIX — Create. Develop. Grow." },
-      {
-        property: "og:description",
-        content: "Custom software, web platforms, mobile apps and AI automation, engineered to last.",
-      },
-    ],
+    meta: pageMeta({
+      title: "Software Development & Digital Growth Agency | Devgronix",
+      description:
+        "Devgronix is a digital technology and software solutions agency building custom software, web platforms, mobile apps, cloud infrastructure and AI automation.",
+      path: "/",
+    }),
+    links: canonicalLink("/"),
   }),
   component: Home,
 });

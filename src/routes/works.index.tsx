@@ -6,19 +6,24 @@ import { ProjectCard } from "@/components/site/cards";
 import { CtaBand } from "@/components/site/cta";
 import { getService, projectServiceFilters, publishedProjects } from "@/data";
 import { cn } from "@/lib/utils";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Works", path: "/works" },
+];
 
 export const Route = createFileRoute("/works/")({
   head: () => ({
-    meta: [
-      { title: "Works — DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "Sample case studies from DEVGRONIX across platforms, mobile, e-commerce, AI and infrastructure. All projects are labelled demo or concept.",
-      },
-      { property: "og:title", content: "Works — DEVGRONIX" },
-      { property: "og:description", content: "Demo and concept case studies across our capabilities." },
-    ],
+    meta: pageMeta({
+      title: "Portfolio & Case Studies | Devgronix",
+      description:
+        "Sample Devgronix case studies across platforms, mobile apps, e-commerce, AI and infrastructure. Every project on this page is labelled demo or concept work.",
+      path: "/works",
+    }),
+    links: canonicalLink("/works"),
+    scripts: [jsonLd(breadcrumbSchema(crumbs))],
   }),
   component: WorksPage,
 });

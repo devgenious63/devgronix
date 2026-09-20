@@ -18,22 +18,24 @@ import {
   pricingNote,
   serviceCategories,
 } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Pricing", path: "/pricing" },
+];
 
 export const Route = createFileRoute("/pricing/")({
   head: () => ({
-    meta: [
-      { title: "Pricing by Service — DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "Choose a service to see its pricing. Starting points for web, mobile, software, AI, cloud, design, branding, video, marketing, SEO and content work.",
-      },
-      { property: "og:title", content: "Pricing by Service — DEVGRONIX" },
-      {
-        property: "og:description",
-        content: "Service-specific plans with transparent starting points and fixed written proposals.",
-      },
-    ],
+    meta: pageMeta({
+      title: "Pricing by Service | Devgronix",
+      description:
+        "Choose a service to see its pricing. Starting points for web, mobile, software, AI, cloud, design, branding, video, digital marketing, SEO and content work.",
+      path: "/pricing",
+    }),
+    links: canonicalLink("/pricing"),
+    scripts: [jsonLd(breadcrumbSchema(crumbs))],
   }),
   component: PricingIndex,
 });
@@ -45,7 +47,9 @@ function PricingIndex() {
         eyebrow="Pricing"
         title="Choose a service to see its pricing"
         description="Each service is priced the way it is actually delivered — per project, per month, per design or per video. Pick one below to see its plans."
-      />
+      >
+        <Breadcrumbs items={crumbs} className="mt-6" />
+      </PageHero>
 
       {serviceCategories.map((category, catIndex) => (
         <Section

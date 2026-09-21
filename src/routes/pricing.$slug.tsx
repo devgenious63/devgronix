@@ -58,6 +58,7 @@ function ServicePricing() {
         title={`${service.title} pricing`}
         description={service.summary}
       >
+        <Breadcrumbs items={pricingCrumbs(service.title, service.slug)} className="mt-6" />
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link to="/services/$slug" params={{ slug: service.slug }} className="btn-outline">
             Explore service

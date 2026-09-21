@@ -48,7 +48,9 @@ function WorksPage() {
         eyebrow="Works"
         title="Case studies, honestly labelled"
         description="Each project below is a demo or concept build. They show our structure, decisions and measurement — real client stories are added as approvals come through."
-      />
+      >
+        <Breadcrumbs items={crumbs} className="mt-6" />
+      </PageHero>
 
       <Section className="border-t-0">
         <div className="flex flex-wrap gap-2">

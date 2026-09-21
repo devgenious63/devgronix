@@ -49,6 +49,7 @@ function WorkDetail() {
         title={project.title}
         description={project.summary}
       >
+        <Breadcrumbs items={workCrumbs(project.title, project.slug)} className="mt-6" />
         <div className="mt-8">
           <Link
             to="/works"

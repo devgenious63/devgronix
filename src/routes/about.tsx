@@ -40,7 +40,9 @@ function AboutPage() {
         eyebrow="About"
         title="A small team with production scars"
         description="DEVGRONIX was formed by engineers and designers who had spent years inheriting other people's shortcuts. We build the version that survives the handover."
-      />
+      >
+        <Breadcrumbs items={aboutCrumbs} className="mt-6" />
+      </PageHero>
 
       <Section className="border-t-0">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr]">

@@ -83,7 +83,9 @@ function ContactPage() {
         eyebrow="Contact"
         title="Tell us what you're building"
         description="Share the problem, the deadline and the constraints. We reply within one business day with next steps or a scoping call."
-      />
+      >
+        <Breadcrumbs items={contactCrumbs} className="mt-6" />
+      </PageHero>
 
       <Section className="border-t-0">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr]">

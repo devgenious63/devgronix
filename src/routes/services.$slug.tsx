@@ -74,6 +74,7 @@ function ServiceDetail() {
   return (
     <>
       <PageHero eyebrow={service.tagline} title={service.title} description={service.summary}>
+        <Breadcrumbs items={serviceCrumbs(service.title, service.slug)} className="mt-6" />
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link to="/contact" search={{ service: service.slug }} className="btn-primary group">
             Get a Quote

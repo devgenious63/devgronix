@@ -7,21 +7,26 @@ import { PageHero } from "@/components/site/page-hero";
 import { Section } from "@/components/site/section";
 import { budgetOptions, publishedServices, serviceCategories, site } from "@/data";
 import { cn } from "@/lib/utils";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const contactCrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+];
 
 export const Route = createFileRoute("/contact")({
   validateSearch: (search: Record<string, unknown>): { service?: string } =>
     typeof search['service'] === "string" ? { service: search['service'] } : {},
   head: () => ({
-    meta: [
-      { title: "Contact — DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "Tell DEVGRONIX about your project. Share your goals, timeline and budget and get a scoped proposal back.",
-      },
-      { property: "og:title", content: "Contact — DEVGRONIX" },
-      { property: "og:description", content: "Start a project with DEVGRONIX." },
-    ],
+    meta: pageMeta({
+      title: "Contact Devgronix | Start a Project or Request a Quote",
+      description:
+        "Tell Devgronix about your project. Share your goals, timeline and budget and get a scoped proposal back.",
+      path: "/contact",
+    }),
+    links: canonicalLink("/contact"),
+    scripts: [jsonLd(breadcrumbSchema(contactCrumbs))],
   }),
   component: ContactPage,
 });
@@ -78,7 +83,9 @@ function ContactPage() {
         eyebrow="Contact"
         title="Tell us what you're building"
         description="Share the problem, the deadline and the constraints. We reply within one business day with next steps or a scoping call."
-      />
+      >
+        <Breadcrumbs items={contactCrumbs} className="mt-6" />
+      </PageHero>
 
       <Section className="border-t-0">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr]">

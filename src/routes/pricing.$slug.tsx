@@ -12,6 +12,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getPlansForService, getService, pricingFaqs, publishedServices } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const pricingCrumbs = (title: string, slug: string) => [
+  { name: "Home", path: "/" },
+  { name: "Pricing", path: "/pricing" },
+  { name: title, path: `/pricing/${slug}` },
+];
 
 export const Route = createFileRoute("/pricing/$slug")({
   loader: ({ params }) => {
@@ -21,17 +29,19 @@ export const Route = createFileRoute("/pricing/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Pricing not found — DEVGRONIX" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Pricing not found — Devgronix" }, { name: "robots", content: "noindex" }] };
     }
     const { service } = loaderData;
-    const description = `Indicative pricing for ${service.title.toLowerCase()} from DEVGRONIX. Plans, starting points and what each one includes.`;
+    const path = `/pricing/${service.slug}`;
+    const description = `Indicative ${service.title.toLowerCase()} pricing from Devgronix: plans, starting points and what each one includes.`;
     return {
-      meta: [
-        { title: `${service.title} Pricing — DEVGRONIX` },
-        { name: "description", content: description },
-        { property: "og:title", content: `${service.title} Pricing — DEVGRONIX` },
-        { property: "og:description", content: description },
-      ],
+      meta: pageMeta({
+        title: `${service.title} Pricing | Devgronix`,
+        description,
+        path,
+      }),
+      links: canonicalLink(path),
+      scripts: [jsonLd(breadcrumbSchema(pricingCrumbs(service.title, service.slug)))],
     };
   },
   component: ServicePricing,
@@ -48,6 +58,7 @@ function ServicePricing() {
         title={`${service.title} pricing`}
         description={service.summary}
       >
+        <Breadcrumbs items={pricingCrumbs(service.title, service.slug)} className="mt-6" />
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link to="/services/$slug" params={{ slug: service.slug }} className="btn-outline">
             Explore service

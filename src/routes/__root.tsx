@@ -14,6 +14,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { site } from "@/data";
+import { jsonLd, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 
 function NotFoundComponent() {
@@ -94,6 +96,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Digital technology and software solutions agency. Create. Develop. Grow.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:locale", content: "en" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -105,6 +109,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      jsonLd({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: SITE_NAME,
+        alternateName: "DEVGRONIX",
+        url: SITE_URL,
+        description:
+          "Devgronix is a digital technology and software solutions agency delivering development, design and digital growth services.",
+        email: site.email,
+        areaServed: ["India", "Saudi Arabia", "United Arab Emirates", "Worldwide"],
+      }),
+      jsonLd({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE_NAME,
+        url: SITE_URL,
+      }),
     ],
   }),
   shellComponent: RootShell,

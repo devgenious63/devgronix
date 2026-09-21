@@ -12,8 +12,10 @@ export const SITE_URL = (
 export const SITE_NAME = "Devgronix";
 
 /** Absolute URL for a site-relative path. */
-export const absoluteUrl = (path = "/") =>
-  `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`.replace(/(?<!:)\/+$/, "") || SITE_URL;
+export const absoluteUrl = (path = "/") => {
+  const clean = path.startsWith("/") ? path : `/${path}`;
+  return clean === "/" ? `${SITE_URL}/` : `${SITE_URL}${clean.replace(/\/+$/, "")}`;
+};
 
 type MetaTag = Record<string, string>;
 

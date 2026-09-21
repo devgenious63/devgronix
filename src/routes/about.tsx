@@ -4,19 +4,24 @@ import { Section, SectionHeading } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta";
 import { Icon } from "@/components/site/icon";
 import { getServicesByCategory, serviceCategories, site, techStack, trustStrip, values, workflow } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const aboutCrumbs = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+];
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: [
-      { title: "About — DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "DEVGRONIX is a remote-first digital technology agency of engineers, designers and strategists building software that outlasts the launch.",
-      },
-      { property: "og:title", content: "About — DEVGRONIX" },
-      { property: "og:description", content: "Who we are, what we value and how we deliver." },
-    ],
+    meta: pageMeta({
+      title: "About Devgronix | Digital Technology & Software Agency",
+      description:
+        "Devgronix is a remote-first digital technology agency of engineers, designers and strategists building software that outlasts the launch.",
+      path: "/about",
+    }),
+    links: canonicalLink("/about"),
+    scripts: [jsonLd(breadcrumbSchema(aboutCrumbs))],
   }),
   component: AboutPage,
 });
@@ -35,7 +40,9 @@ function AboutPage() {
         eyebrow="About"
         title="A small team with production scars"
         description="DEVGRONIX was formed by engineers and designers who had spent years inheriting other people's shortcuts. We build the version that survives the handover."
-      />
+      >
+        <Breadcrumbs items={aboutCrumbs} className="mt-6" />
+      </PageHero>
 
       <Section className="border-t-0">
         <div className="grid gap-12 md:grid-cols-[1.3fr_1fr]">

@@ -7,16 +7,14 @@ import { getServicesByCategory, serviceCategories, site, techStack, trustStrip, 
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: [
-      { title: "About — DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "DEVGRONIX is a remote-first digital technology agency of engineers, designers and strategists building software that outlasts the launch.",
-      },
-      { property: "og:title", content: "About — DEVGRONIX" },
-      { property: "og:description", content: "Who we are, what we value and how we deliver." },
-    ],
+    meta: pageMeta({
+      title: "About Devgronix | Digital Technology & Software Agency",
+      description:
+        "Devgronix is a remote-first digital technology agency of engineers, designers and strategists building software that outlasts the launch.",
+      path: "/about",
+    }),
+    links: canonicalLink("/about"),
+    scripts: [jsonLd(breadcrumbSchema(aboutCrumbs))],
   }),
   component: AboutPage,
 });

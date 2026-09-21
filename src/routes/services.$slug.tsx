@@ -20,6 +20,21 @@ import {
   getService,
   publishedServices,
 } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import {
+  breadcrumbSchema,
+  canonicalLink,
+  faqSchema,
+  jsonLd,
+  pageMeta,
+  serviceSchema,
+} from "@/lib/seo";
+
+const serviceCrumbs = (title: string, slug: string) => [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: title, path: `/services/${slug}` },
+];
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -34,15 +49,18 @@ export const Route = createFileRoute("/services/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Service not found — DEVGRONIX" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Service not found — Devgronix" }, { name: "robots", content: "noindex" }] };
     }
     const { service } = loaderData;
+    const path = `/services/${service.slug}`;
+    const title = `${service.title} Services | Devgronix`;
     return {
-      meta: [
-        { title: `${service.title} — DEVGRONIX` },
-        { name: "description", content: service.summary },
-        { property: "og:title", content: `${service.title} — DEVGRONIX` },
-        { property: "og:description", content: service.summary },
+      meta: pageMeta({ title, description: service.summary, path }),
+      links: canonicalLink(path),
+      scripts: [
+        jsonLd(serviceSchema({ name: service.title, description: service.summary, path })),
+        jsonLd(breadcrumbSchema(serviceCrumbs(service.title, service.slug))),
+        ...(service.faqs && service.faqs.length > 0 ? [jsonLd(faqSchema(service.faqs))] : []),
       ],
     };
   },

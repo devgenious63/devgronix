@@ -12,6 +12,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getPlansForService, getService, pricingFaqs, publishedServices } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const pricingCrumbs = (title: string, slug: string) => [
+  { name: "Home", path: "/" },
+  { name: "Pricing", path: "/pricing" },
+  { name: title, path: `/pricing/${slug}` },
+];
 
 export const Route = createFileRoute("/pricing/$slug")({
   loader: ({ params }) => {

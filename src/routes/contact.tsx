@@ -12,16 +12,14 @@ export const Route = createFileRoute("/contact")({
   validateSearch: (search: Record<string, unknown>): { service?: string } =>
     typeof search['service'] === "string" ? { service: search['service'] } : {},
   head: () => ({
-    meta: [
-      { title: "Contact — DEVGRONIX" },
-      {
-        name: "description",
-        content:
-          "Tell DEVGRONIX about your project. Share your goals, timeline and budget and get a scoped proposal back.",
-      },
-      { property: "og:title", content: "Contact — DEVGRONIX" },
-      { property: "og:description", content: "Start a project with DEVGRONIX." },
-    ],
+    meta: pageMeta({
+      title: "Contact Devgronix | Start a Project or Request a Quote",
+      description:
+        "Tell Devgronix about your project. Share your goals, timeline and budget and get a scoped proposal back.",
+      path: "/contact",
+    }),
+    links: canonicalLink("/contact"),
+    scripts: [jsonLd(breadcrumbSchema(contactCrumbs))],
   }),
   component: ContactPage,
 });

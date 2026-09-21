@@ -4,6 +4,14 @@ import { PageHero } from "@/components/site/page-hero";
 import { Section, SectionHeading } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta";
 import { getAdjacentProjects, getProject, getService } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const workCrumbs = (title: string, slug: string) => [
+  { name: "Home", path: "/" },
+  { name: "Works", path: "/works" },
+  { name: title, path: `/works/${slug}` },
+];
 
 export const Route = createFileRoute("/works/$slug")({
   loader: ({ params }) => {

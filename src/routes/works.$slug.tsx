@@ -21,16 +21,19 @@ export const Route = createFileRoute("/works/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Project not found — DEVGRONIX" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Project not found — Devgronix" }, { name: "robots", content: "noindex" }] };
     }
     const { project } = loaderData;
+    const path = `/works/${project.slug}`;
     return {
-      meta: [
-        { title: `${project.title} (${project.label}) — DEVGRONIX` },
-        { name: "description", content: project.summary },
-        { property: "og:title", content: `${project.title} — DEVGRONIX` },
-        { property: "og:description", content: project.summary },
-      ],
+      meta: pageMeta({
+        title: `${project.title} — ${project.label} Case Study | Devgronix`,
+        description: project.summary,
+        path,
+        type: "article",
+      }),
+      links: canonicalLink(path),
+      scripts: [jsonLd(breadcrumbSchema(workCrumbs(project.title, project.slug)))],
     };
   },
   component: WorkDetail,

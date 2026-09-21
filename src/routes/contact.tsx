@@ -7,6 +7,13 @@ import { PageHero } from "@/components/site/page-hero";
 import { Section } from "@/components/site/section";
 import { budgetOptions, publishedServices, serviceCategories, site } from "@/data";
 import { cn } from "@/lib/utils";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const contactCrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+];
 
 export const Route = createFileRoute("/contact")({
   validateSearch: (search: Record<string, unknown>): { service?: string } =>

@@ -4,6 +4,13 @@ import { Section, SectionHeading } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta";
 import { Icon } from "@/components/site/icon";
 import { getServicesByCategory, serviceCategories, site, techStack, trustStrip, values, workflow } from "@/data";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { breadcrumbSchema, canonicalLink, jsonLd, pageMeta } from "@/lib/seo";
+
+const aboutCrumbs = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+];
 
 export const Route = createFileRoute("/about")({
   head: () => ({
